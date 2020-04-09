@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
@@ -10,13 +12,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FoodMenu extends Application {
-
+	ArrayList<Double> Prices = new ArrayList();
+	ArrayList<String> FoodItems = new ArrayList();
+	public FoodMenu() {
+		
+	}
+	public void addfood(String food) {
+		FoodItems.add(food);
+	}
+	public void addPrice(double price) {
+		Prices.add(price);
+	}
     public static void main(String[] args) {
         launch(args);
     }
 
     public void start(Stage primaryStage) {
-
+    	FoodMenu Receipt = new FoodMenu();
+    	ArrayList<Object> R= new ArrayList();
         TabPane tabPane = new TabPane();
         Button button1 = new Button("Hamburgers & Fries ");
         Button button2 = new Button("Chicken Club and Fries ");
