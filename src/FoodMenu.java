@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,9 +23,28 @@ public class FoodMenu extends Application {
 
     public void start(Stage primaryStage) {
     	//this is where the customor reicepts will be held 
-    	
+    	TableView table = new TableView();
+    	TableView table2 = new TableView();
+    	TableView table3 = new TableView();
     	ArrayList<Object> R= new ArrayList();
         TabPane tabPane = new TabPane();
+        //these are the buttons for the food
+        TableColumn t = new TableColumn("Food");
+        TableColumn P = new TableColumn("Prices");
+        TableColumn Display1 = new TableColumn("Display");
+        TableColumn Display2 = new TableColumn("Display");
+        table.getColumns().addAll(P,t);
+        table2.getColumns().add(Display1);
+        table3.getColumns().add(Display2);
+        t.setMinWidth(200);
+        t.setMaxWidth(200);
+        P.setMaxWidth(100);
+        P.setMinWidth(100);
+        Display1.setMinWidth(250);
+        Display1.setMaxWidth(250);
+        Display2.setMinWidth(250);
+        Display2.setMaxWidth(250);
+        
         Button button1 = new Button("Hamburgers & Fries ");
         Button button2 = new Button("Chicken Club and Fries ");
         Button button3 = new Button("Chicken Salad ");
@@ -71,13 +93,14 @@ public class FoodMenu extends Application {
         //this is for the tabs to have a grid sturtures
         GridPane G= new GridPane();
         GridPane G2 = new GridPane();
+        GridPane G3 = new GridPane();
         G.setHgap(20);
         G.setVgap(20);
         G2.setHgap(20);
         G2.setVgap(20);
         Tab tab1 = new Tab("Food Specials", G);
         Tab tab2 = new Tab("Sides"  , G2);
-        Tab tab3 = new Tab("Reciept" , new Label(""));
+        Tab tab3 = new Tab("Reciept" , G3);
         Tab tab4 = new Tab("Invoices");
         //this is the button to put in the scenes and the row and colums in that order;fv b
         G.add(button1, 0,0);
@@ -123,7 +146,9 @@ public class FoodMenu extends Application {
         G2.add(button41, 0, 7);
         G2.add(button42, 1, 7);
         G2.add(button43, 2, 7);
-        
+        G.add(table2, 0, 3);
+        G2.add(table3, 0, 8);
+        G3.add(table, 0, 0);
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
