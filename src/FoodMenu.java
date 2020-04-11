@@ -1,4 +1,6 @@
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -7,11 +9,18 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FoodMenu extends Application {
@@ -26,9 +35,21 @@ public class FoodMenu extends Application {
     	TableView table = new TableView();
     	TableView table2 = new TableView();
     	TableView table3 = new TableView();
+    	TableView HistoryOrder = new TableView();
+    	BackgroundFill backg = new BackgroundFill(Color.BLACK, null, null);
+    	Background backgs = new Background(backg);
+    	ImageView im = new ImageView();
+    	Image image1 = null;
+		try {
+			image1 = new Image(new FileInputStream("C:\\Users\\catboot\\Pictures\\Rest.jpg"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	im.setImage(image1);
     	ArrayList<Object> R= new ArrayList();
         TabPane tabPane = new TabPane();
-        //these are the buttons for the food
+        //this is for the user to see when he hit a button 
         TableColumn t = new TableColumn("Food");
         TableColumn P = new TableColumn("Prices");
         TableColumn Display1 = new TableColumn("Display");
@@ -44,7 +65,7 @@ public class FoodMenu extends Application {
         Display1.setMaxWidth(250);
         Display2.setMinWidth(250);
         Display2.setMaxWidth(250);
-        
+        //these are the buttons for the food
         Button button1 = new Button("Hamburgers & Fries ");
         Button button2 = new Button("Chicken Club and Fries ");
         Button button3 = new Button("Chicken Salad ");
@@ -88,33 +109,47 @@ public class FoodMenu extends Application {
         Button button41 = new Button("Add Greens beans and Mash potatoes ");
         Button button42 = new Button("Add all sauces ");
         Button button43 = new Button("Add Green Beans and Vegetable Medley  ");
+        //this button will remove the last order put in
+        Button Delete = new Button("Remove");
+        //this will finalize the pick for the food and send the data to an array
+        Button finalize1 = new Button("Finalize");
+        Button finalize2 = new Button("Finalize");
+        //this will be for the Recipet tab to have a payment or void button
+        Button Payed = new Button("Payment");
+        Button Void = new Button("Void");
         
      
         //this is for the tabs to have a grid sturtures
         GridPane G= new GridPane();
         GridPane G2 = new GridPane();
         GridPane G3 = new GridPane();
+        //this set the distance inbetween the buttons on the grid
         G.setHgap(20);
         G.setVgap(20);
         G2.setHgap(20);
         G2.setVgap(20);
+        G3.setVgap(50);
+ 
+        //this make the tabs not closeable
+        tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         Tab tab1 = new Tab("Food Specials", G);
         Tab tab2 = new Tab("Sides"  , G2);
         Tab tab3 = new Tab("Reciept" , G3);
         Tab tab4 = new Tab("Invoices");
         //this is the button to put in the scenes and the row and colums in that order;fv b
-        G.add(button1, 0,0);
-        G.add(button2, 1,0);
-        G.add(button3, 2,0);
-        G.add(button4, 3,0);
-        G.add(button5, 0, 1);
-        G.add(button6, 1, 1);
-        G.add(button7, 2, 1);
-        G.add(button8, 3, 1);
-        G.add(button9, 0, 2);
-        G.add(button10, 1, 2);
-        G.add(button11, 2, 2);
-        G.add(button12, 3, 2);
+        G.add(button1, 1,1);
+        G.add(button2, 2,1);
+        G.add(button3, 3,1);
+        G.add(button4, 4,1);
+        G.add(button5, 1, 2);
+        G.add(button6, 2, 2);
+        G.add(button7, 3, 2);
+        G.add(button8, 4, 2);
+        G.add(button9, 1, 3);
+        G.add(button10, 2, 3);
+        G.add(button11, 3, 3);
+        G.add(button12, 4, 3);
+        G.setBackground(backgs);
         G2.add(button13, 0,0);
         G2.add(button14, 1,0);
         G2.add(button15, 2,0);
@@ -136,7 +171,7 @@ public class FoodMenu extends Application {
         G2.add(button31, 2, 4);
         G2.add(button32, 3, 4);
         G2.add(button33, 0, 5);
-        G2.add(button34, 1, 5);
+        G2.add(button34, 1, 5); 
         G2.add(button35, 2, 5);
         G2.add(button36, 3, 5);
         G2.add(button37, 0, 6);
@@ -146,9 +181,18 @@ public class FoodMenu extends Application {
         G2.add(button41, 0, 7);
         G2.add(button42, 1, 7);
         G2.add(button43, 2, 7);
-        G.add(table2, 0, 3);
+        //this is for first display on the food specials
+        G.add(table2, 0, 0);
+        G.add(im, 1, 0);
+        G.add(finalize1, 0, 4);
         G2.add(table3, 0, 8);
+        G2.add(finalize2, 0, 9);
         G3.add(table, 0, 0);
+        G3.add(Payed, 0, 1);
+        G3.add(Void, 1, 1);
+        //this is the delete button
+        G.add(Delete,1,4);
+        //these add the tabs to the panes
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
