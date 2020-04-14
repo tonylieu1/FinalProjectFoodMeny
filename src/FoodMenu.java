@@ -40,6 +40,7 @@ public class FoodMenu extends Application {
     	TableView table2 = new TableView();
     	TableView table3 = new TableView();
     	TableView HistoryOrder = new TableView();
+    	TableView Total = new TableView();
     	BackgroundFill backg = new BackgroundFill(Color.BLACK, null, null);
     	Background backgs = new Background(backg);
     	URL url = this.getClass().getResource("/images/Rest.jpg");
@@ -75,9 +76,13 @@ public class FoodMenu extends Application {
       
         TableColumn t2 = new TableColumn("Food");
         TableColumn p2 = new TableColumn("Prices");
-        TableColumn HistoyOrders = new TableColumn("Past Orders");
+        TableColumn CheckNum = new TableColumn("CheckNum");
+        TableColumn HistoyOrders = new TableColumn("Total Check");
+        TableColumn Totalamount = new TableColumn("Total");
         table.getColumns().addAll(P,t);
         table2.getColumns().addAll(t2,p2);
+        table3.getColumns().addAll(HistoyOrders, CheckNum);
+        Total.getColumns().add(Totalamount);
         t.setMinWidth(200);
         t.setMaxWidth(200);
         P.setMaxWidth(100);
@@ -216,7 +221,8 @@ public class FoodMenu extends Application {
         G3.add(table, 0, 0);
         G3.add(Payed, 0, 1);
         G3.add(Void, 1, 1);
-        G4.add(HistoryOrder, 0, 0);
+        G4.add(table3, 0, 0);
+        G4.add(Total, 0, 1);
         G4.setBackground(backgs);
         G3.setBackground(backgs);
         G5.add(table2, 0, 0);
