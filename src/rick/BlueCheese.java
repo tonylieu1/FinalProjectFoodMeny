@@ -13,4 +13,9 @@ public class BlueCheese implements FoodCost
     {
         System.out.println("Add blue cheese");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

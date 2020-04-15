@@ -13,4 +13,9 @@ public class OnionRings implements FoodCost
     {
         System.out.println("Add Onion Rings");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

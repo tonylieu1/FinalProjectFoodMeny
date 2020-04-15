@@ -13,5 +13,10 @@ public class VegableMedly implements FoodCost
     {
         System.out.println("Add Vegable Medly");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

@@ -13,4 +13,9 @@ public class GreenBeans implements FoodCost
     {
         System.out.println("Add Green Beans");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

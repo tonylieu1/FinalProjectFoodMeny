@@ -13,4 +13,9 @@ public class Fries implements FoodCost
     {
         System.out.println("Add Fries");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

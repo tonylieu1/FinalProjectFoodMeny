@@ -12,4 +12,9 @@ public class Chicken implements FoodCost
     {
         System.out.println("Add Chicken");
     }
+	@Override
+	public String foodName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

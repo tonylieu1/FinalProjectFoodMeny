@@ -3,7 +3,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -24,20 +24,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import rick.FoodFactory;
 
 public class FoodMenu extends Application {
-	CustomorReciepts Receipt = new CustomorReciepts();
-	ArrayList<CustomorReciepts> invocies = new ArrayList();
-	ArrayList<CustomorReciepts> TempRecipt = new ArrayList();
+
  	private Image image2;
-    public static void main(String[] args) {
+    public static void main(String[] args)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
         launch(args);
+        
     }
 
-    public void start(Stage primaryStage) {
+    @SuppressWarnings("unchecked")
+	public void start(Stage primaryStage) {
     	//this is where the customor reicepts will be held 
     	TableView table = new TableView();
+    	//table2 is the one that display what the waiter put in
     	TableView table2 = new TableView();
+    	//table3 is the invoice tab for checks numbers
     	TableView table3 = new TableView();
     	TableView HistoryOrder = new TableView();
     	TableView Total = new TableView();
@@ -65,22 +68,28 @@ public class FoodMenu extends Application {
     	im2.setImage(image2);
     	im2.setFitHeight(200);
     	im2.setFitWidth(200);
-    	ArrayList<Object> R= new ArrayList();
         TabPane tabPane = new TabPane();
         TabPane tabPane2 = new TabPane();
   
         SplitPane sp = new SplitPane();
         //this is for the user to see when he hit a button 
-        TableColumn t = new TableColumn("Food");
-        TableColumn P = new TableColumn("Prices");
-      
+        TableColumn<String, Menu> t = new TableColumn<>("Food");
+        t.setCellValueFactory(new PropertyValueFactory<>("Food"));
+        TableColumn<String, Menu> P = new TableColumn("Price");
+        P.setCellValueFactory(new PropertyValueFactory<>("price"));
         TableColumn t2 = new TableColumn("Food");
+        t2.setCellValueFactory(new PropertyValueFactory<>("Food"));
         TableColumn p2 = new TableColumn("Prices");
+        p2.setCellValueFactory(new PropertyValueFactory<>("price"));
         TableColumn CheckNum = new TableColumn("CheckNum");
         TableColumn HistoyOrders = new TableColumn("Total Check");
+        //this the total of all checks
         TableColumn Totalamount = new TableColumn("Total");
-        table.getColumns().addAll(P,t);
+        table.getColumns().addAll(t,P);
+        //this is how item get added
+       // table.getItems().add(new Menu("String<food>","String<price>"));
         table2.getColumns().addAll(t2,p2);
+      ;
         table3.getColumns().addAll(HistoyOrders, CheckNum);
         Total.getColumns().add(Totalamount);
         t.setMinWidth(200);
@@ -91,7 +100,7 @@ public class FoodMenu extends Application {
         t2.setMaxWidth(200);
         p2.setMaxWidth(100);
         p2.setMinWidth(100);
-     
+        
 
         //these are the buttons for the food
         Button button1 = new Button("Hamburgers & Fries ");
@@ -106,29 +115,29 @@ public class FoodMenu extends Application {
         Button button10 = new Button("Shrimp PoBoy ");
         Button button11 = new Button("Banger and mash ");
         Button button12 = new Button("Salmon and Vegetable medley");
-        Button button13 = new Button("Beef ");
-        Button button14 = new Button("Chicken ");
-        Button button15 = new Button("Shrimp ");
+        Button button13 = new Button("Beef");
+        Button button14 = new Button("Chicken");
+        Button button15 = new Button("Shrimp");
         Button button16 = new Button("Salmon");
         Button button17 = new Button("Tuna");
         Button button18 = new Button("Fries ");
-        Button button19 = new Button("Vegable Medly ");
-        Button button20 = new Button("Chicken Tender ");
+        Button button19 = new Button("Vegable Medly");
+        Button button20 = new Button("Chicken Tender");
         Button button21 = new Button("Onion Rings");
         Button button22 = new Button("Rice");
         Button button23 = new Button("Bean ");
-        Button button24 = new Button("Green Beans ");
+        Button button24 = new Button("Green Beans");
         Button button25 = new Button("Rice");
         Button button26 = new Button("Fruit");
-        Button button27 = new Button("Honey mustard ");
-        Button button28 = new Button("BBQ sauce ");
-        Button button29 = new Button("Ranch ");
-        Button button30 = new Button("Blue Cheese ");
-        Button button31 = new Button("Bacon ");
+        Button button27 = new Button("Honey mustard");
+        Button button28 = new Button("BBQ sauce");
+        Button button29 = new Button("Ranch");
+        Button button30 = new Button("Blue Cheese");
+        Button button31 = new Button("Bacon");
         Button button32 = new Button("Lettuce");
-        Button button33 = new Button("Tomatoes ");
-        Button button34 = new Button("Onions ");
-        Button button35 = new Button("Salad ");
+        Button button33 = new Button("Tomatoes");
+        Button button34 = new Button("Onions");
+        Button button35 = new Button("Salad");
         Button button36 = new Button("Crotons");   
         Button button37 = new Button("Add all meats ");
         Button button38 = new Button("Add all Vegetables ");
@@ -249,18 +258,23 @@ public class FoodMenu extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				TempRecipt.add(Receipt);
-				
+			String FoodChose = button13.getText();
+			FoodFactory f = new FoodFactory();
+			f.setFood(FoodChose);
+			String PricsDouble = Double.toString(3.00);
+			PricsDouble = PricsDouble + "0";
+			table.getItems().add(new Menu(FoodChose,PricsDouble));
+			table2.getItems().add(new Menu(FoodChose,PricsDouble));
 			}
         	
         };
        
-       button1.setOnAction(event);
+       button13.setOnAction(event);
         
         primaryStage.setScene(scene);
         primaryStage.setTitle("FoodMenu");
 
         primaryStage.show();
     }
-    
+
 }
