@@ -29,6 +29,8 @@ import rick.FoodFactory;
 public class FoodMenu extends Application {
 
  	private Image image2;
+ 	int count;
+ 	int checkNum;
     public static void main(String[] args)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
         launch(args);
         
@@ -36,6 +38,7 @@ public class FoodMenu extends Application {
 
     @SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) {
+    	
     	//this is where the customor reicepts will be held 
     	TableView table = new TableView();
     	//table2 is the one that display what the waiter put in
@@ -257,24 +260,83 @@ public class FoodMenu extends Application {
         //this is what the buttons will do
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {
-			String FoodChose = button13.getText();
-			FoodFactory f = new FoodFactory();
-			f.setFood(FoodChose);
-			String PricsDouble = Double.toString(3.00);
+			public void handle(ActionEvent e) {
+			counting();
+			Button BName = (Button) e.getSource();
+			String FoodChose = BName.getText();
+			String PricsDouble = Double.toString(count);
 			PricsDouble = PricsDouble + "0";
 			table.getItems().add(new Menu(FoodChose,PricsDouble));
 			table2.getItems().add(new Menu(FoodChose,PricsDouble));
+			
+			}
+        };
+        EventHandler<ActionEvent> DeleteR = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				minusCount();
+				// TODO Auto-generated method stub
+				table2.getItems().remove(count);
+				
 			}
         	
         };
-       
+       button1.setOnAction(event);
+       button2.setOnAction(event);
+       button3.setOnAction(event);
+       button4.setOnAction(event);
+       button5.setOnAction(event);
+       button6.setOnAction(event);
+       button7.setOnAction(event);
+       button8.setOnAction(event);
+       button9.setOnAction(event);
+       button10.setOnAction(event);
+       button11.setOnAction(event);
+       button12.setOnAction(event);
        button13.setOnAction(event);
+       button14.setOnAction(event);
+       button15.setOnAction(event);
+       button16.setOnAction(event);
+       button17.setOnAction(event);
+       button18.setOnAction(event);
+       button19.setOnAction(event);
+       button20.setOnAction(event);
+       button21.setOnAction(event);
+       button22.setOnAction(event);
+       button23.setOnAction(event);
+       button24.setOnAction(event);
+       button25.setOnAction(event);
+       button26.setOnAction(event);
+       button27.setOnAction(event);
+       button28.setOnAction(event);
+       button29.setOnAction(event);
+       button30.setOnAction(event);
+       button31.setOnAction(event);
+       button32.setOnAction(event);
+       button33.setOnAction(event);
+       button34.setOnAction(event);
+       button35.setOnAction(event);
+       button36.setOnAction(event);
+       button37.setOnAction(event);
+       button38.setOnAction(event);
+       button40.setOnAction(event);
+       button41.setOnAction(event);
+       button42.setOnAction(event);
+       button43.setOnAction(event);
+       Delete.setOnAction(DeleteR);
         
         primaryStage.setScene(scene);
         primaryStage.setTitle("FoodMenu");
 
         primaryStage.show();
+    }//these method is so the remove button will remove the last food entry is deleted from the menu
+    public void counting() {
+    	count++;
     }
-
+    public void minusCount(){
+    	if(count !=0) {
+    		count--;
+    	}
+    }
+    	
 }
