@@ -3,7 +3,11 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Observable;
+
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -11,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +28,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import rick.FoodFactory;
 
@@ -31,6 +37,8 @@ public class FoodMenu extends Application {
  	private Image image2;
  	int count;
  	int checkNum;
+ 	double totalCheckAmount;
+ 	ArrayList<Double> pricesTotal = new ArrayList();
     public static void main(String[] args)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
         launch(args);
         
@@ -66,7 +74,8 @@ public class FoodMenu extends Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		TextField texts = new TextField();
+		texts.setText("Total:" +totalCheckAmount);
     	im.setImage(image1);
     	im2.setImage(image2);
     	im2.setFitHeight(200);
@@ -78,22 +87,27 @@ public class FoodMenu extends Application {
         //this is for the user to see when he hit a button 
         TableColumn<String, Menu> t = new TableColumn<>("Food");
         t.setCellValueFactory(new PropertyValueFactory<>("Food"));
-        TableColumn<String, Menu> P = new TableColumn("Price");
+        TableColumn<String, Menu> P = new TableColumn<String, Menu>("Price");
         P.setCellValueFactory(new PropertyValueFactory<>("price"));
-        TableColumn t2 = new TableColumn("Food");
+        TableColumn<String, Menu> t2 = new TableColumn<String, Menu>("Food");
         t2.setCellValueFactory(new PropertyValueFactory<>("Food"));
-        TableColumn p2 = new TableColumn("Prices");
+        TableColumn<String, Menu> p2 = new TableColumn<String, Menu>("Prices");
         p2.setCellValueFactory(new PropertyValueFactory<>("price"));
-        TableColumn CheckNum = new TableColumn("CheckNum");
-        TableColumn HistoyOrders = new TableColumn("Total Check");
+        
+        TableColumn<Integer, invo> CheckNum = new TableColumn<Integer, invo>("CheckNum");
+        CheckNum.setCellValueFactory(new PropertyValueFactory<>("CheckNum"));
+        TableColumn<Integer, invo> totalCheck = new TableColumn<Integer, invo>("TotalCheck");
+       totalCheck.setCellValueFactory(new PropertyValueFactory<>("TotalCheck"));
         //this the total of all checks
         TableColumn Totalamount = new TableColumn("Total");
+        Totalamount.setCellFactory(new PropertyValueFactory<>("Total"));
         table.getColumns().addAll(t,P);
         //this is how item get added
        // table.getItems().add(new Menu("String<food>","String<price>"));
         table2.getColumns().addAll(t2,p2);
       ;
-        table3.getColumns().addAll(HistoyOrders, CheckNum);
+        table3.getColumns().addAll(CheckNum,totalCheck);
+        HistoryOrder.getColumns().add(totalCheck);
         Total.getColumns().add(Totalamount);
         t.setMinWidth(200);
         t.setMaxWidth(200);
@@ -103,6 +117,13 @@ public class FoodMenu extends Application {
         t2.setMaxWidth(200);
         p2.setMaxWidth(100);
         p2.setMinWidth(100);
+        CheckNum.setMinWidth(200);
+        CheckNum.setMaxWidth(200);
+        totalCheck.setMinWidth(100);
+        totalCheck.setMaxWidth(100);
+        Totalamount.setMinWidth(200);
+        Totalamount.setMaxWidth(200);
+  
         
 
         //these are the buttons for the food
@@ -179,7 +200,7 @@ public class FoodMenu extends Application {
         Tab tab1 = new Tab("Food Specials", G);
         Tab tab2 = new Tab("Sides"  , G2);
         Tab tab3 = new Tab("Reciept" , G3);
-        Tab tab4 = new Tab("Invoices", G4);
+        //Tab tab4 = new Tab("Invoices", G4);
         Tab tab5 = new Tab("Displays", G5);
         //this is the button to put in the scenes and the row and colums in that order;fv b
         G.add(button1, 1,1);
@@ -231,10 +252,11 @@ public class FoodMenu extends Application {
         G.add(im, 1, 0);
         G2.add(im2, 1, 0);
         G3.add(table, 0, 0);
+        G3.add(texts, 1, 0);
         G3.add(Payed, 0, 1);
         G3.add(Void, 1, 1);
-        G4.add(table3, 0, 0);
-        G4.add(Total, 0, 1);
+       // G4.add(table3, 0, 0);
+        //G4.add(Total, 0, 1);
         G4.setBackground(backgs);
         G3.setBackground(backgs);
         G5.add(table2, 0, 0);
@@ -248,7 +270,7 @@ public class FoodMenu extends Application {
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
-        tabPane.getTabs().add(tab4);
+       // tabPane.getTabs().add(tab4);
         tabPane2.getTabs().add(tab5);
         
         sp.getItems().add(tabPane);
@@ -261,26 +283,61 @@ public class FoodMenu extends Application {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-			counting();
 			Button BName = (Button) e.getSource();
 			String FoodChose = BName.getText();
 			String PricsDouble = Double.toString(count);
 			PricsDouble = PricsDouble + "0";
-			table.getItems().add(new Menu(FoodChose,PricsDouble));
 			table2.getItems().add(new Menu(FoodChose,PricsDouble));
-			
+			table.getItems().add(new Menu(FoodChose,PricsDouble));
+			addCheck(PricsDouble);
+			counting();
 			}
         };
         EventHandler<ActionEvent> DeleteR = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				minusCount();
 				// TODO Auto-generated method stub
 				table2.getItems().remove(count);
+				table.getItems().remove(count);
+				subCheck();
+				minusCount();
 				
 			}
         	
         };
+        EventHandler<ActionEvent> Finallize = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(table2.getItems().isEmpty()) {
+					return;
+				}
+				else {
+				table2.getItems().clear();
+				count = 0;
+				checkNum++;
+				texts.setText("Total:" +totalCheckAmount);
+				}
+			
+			}
+        	
+        };
+        EventHandler<ActionEvent> payment = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				if(table2.getItems().isEmpty()) {
+				table.getItems().clear();
+				totalCheckAmount = 0;
+				texts.setText("Total:" +totalCheckAmount);
+				}
+				
+			}
+        	
+        };
+       
+       
        button1.setOnAction(event);
        button2.setOnAction(event);
        button3.setOnAction(event);
@@ -324,7 +381,9 @@ public class FoodMenu extends Application {
        button42.setOnAction(event);
        button43.setOnAction(event);
        Delete.setOnAction(DeleteR);
-        
+       finalize1.setOnAction(Finallize);
+       Payed.setOnAction(payment);
+       Void.setOnAction(payment);
         primaryStage.setScene(scene);
         primaryStage.setTitle("FoodMenu");
 
@@ -338,5 +397,14 @@ public class FoodMenu extends Application {
     		count--;
     	}
     }
+    public void addCheck(String num) {
+    	double number = Double.valueOf(num);
+    	pricesTotal.add(number);
+    	totalCheckAmount =  totalCheckAmount + number;
+    }
+    public void subCheck() {
+    	totalCheckAmount = totalCheckAmount - pricesTotal.get(count);
+    }
+    
     	
 }
