@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -35,11 +36,13 @@ public class FoodMenu extends Application {
  	int checkNum;
  	double totalCheckAmount;
  	double totalCheckAmount2;
+ 	double foodPrice;
  	ArrayList<Double> pricesTotal = new ArrayList();
+ 	ArrayList<Double> pricesTotal2 = new ArrayList();
     public static void main(String[] args)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
         launch(args);     
     }
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
     	//this is where the customor reicepts will be held 
     	TableView table = new TableView();
     	//table2 is the one that display what the waiter put in
@@ -122,36 +125,36 @@ public class FoodMenu extends Application {
         Totalamount.setMinWidth(200);
         Totalamount.setMaxWidth(200);
         //these are the buttons for the food
-        Button button1 = new Button("Hamburgers & Fries ");
-        Button button2 = new Button("Chicken Club and Fries ");
-        Button button3 = new Button("Chicken Salad ");
-        Button button4 = new Button("Tuna and Vegetable medley ");
-        Button button5 = new Button("Steaks and mash potatoes ");
-        Button button6 = new Button("Burritos and Rice ");
-        Button button7 = new Button("Chicken Florentine and Mash potatoes ");
-        Button button8 = new Button("Chicken tenders and fries ");
-        Button button9 = new Button("Shrimp Capellini");
-        Button button10 = new Button("Shrimp PoBoy ");
-        Button button11 = new Button("Banger and mash ");
-        Button button12 = new Button("Salmon and Vegetable medley");
+        Button button1 = new Button("HamburgersAndFries");
+        Button button2 = new Button("ChickenClubAndFries");
+        Button button3 = new Button("ChickenSalad");
+        Button button4 = new Button("TunaAndVegetable medley");
+        Button button5 = new Button("SteaksandMashPotatoes ");
+        Button button6 = new Button("BurritosAndRice ");
+        Button button7 = new Button("ChickenFlorentineAndMashpotatoes");
+        Button button8 = new Button("ChickenTendersAndfries");
+        Button button9 = new Button("ShrimpCapellini");
+        Button button10 = new Button("ShrimpPoBoy");
+        Button button11 = new Button("BangerAndMash");
+        Button button12 = new Button("SalmonAndVegetableMedley");
         Button button13 = new Button("Beef");
         Button button14 = new Button("Chicken");
         Button button15 = new Button("Shrimp");
         Button button16 = new Button("Salmon");
         Button button17 = new Button("Tuna");
         Button button18 = new Button("Fries ");
-        Button button19 = new Button("Vegable Medly");
-        Button button20 = new Button("Chicken Tender");
-        Button button21 = new Button("Onion Rings");
+        Button button19 = new Button("VegableMedly");
+        Button button20 = new Button("ChickenTender");
+        Button button21 = new Button("OnionRings");
         Button button22 = new Button("Rice");
         Button button23 = new Button("Bean ");
-        Button button24 = new Button("Green Beans");
+        Button button24 = new Button("GreenBeans");
         Button button25 = new Button("Rice");
         Button button26 = new Button("Fruit");
-        Button button27 = new Button("Honey mustard");
-        Button button28 = new Button("BBQ sauce");
+        Button button27 = new Button("Honeymustard");
+        Button button28 = new Button("BBQsauce");
         Button button29 = new Button("Ranch");
-        Button button30 = new Button("Blue Cheese");
+        Button button30 = new Button("BlueCheese");
         Button button31 = new Button("Bacon");
         Button button32 = new Button("Lettuce");
         Button button33 = new Button("Tomatoes");
@@ -299,7 +302,6 @@ public class FoodMenu extends Application {
         tabPane.getTabs().add(tab3);
        // tabPane.getTabs().add(tab4);
         tabPane2.getTabs().add(tab5);
-        
         sp.getItems().add(tabPane);
         sp.getItems().add(tabPane2);
         VBox vBox = new VBox(sp);
@@ -312,8 +314,16 @@ public class FoodMenu extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 			Button BName = (Button) e.getSource();
+			FoodFacto ff = FoodFacto.getFood();
 			String FoodChose = BName.getText();
-			String PricsDouble = Double.toString(count);
+			ff.setCompany(FoodChose);
+			try {
+				foodPrice = ff.getFoodPrice();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String PricsDouble = Double.toString(foodPrice);
 			PricsDouble = PricsDouble + "0";
 			table2.getItems().add(new Menu(FoodChose,PricsDouble));
 			table.getItems().add(new Menu(FoodChose,PricsDouble));
@@ -336,7 +346,6 @@ public class FoodMenu extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
 				if(table2.getItems().isEmpty()) {
 					return;
 				}
@@ -454,7 +463,14 @@ public class FoodMenu extends Application {
     	     				newWindow2.setTitle("Topping Window");
     	     				newWindow2.setScene(scene);
     	                   newWindow2.show();
-    	                  
+    	                       EventHandler<ActionEvent> Dones = new EventHandler<ActionEvent>() {
+     					@Override
+     					public void handle(ActionEvent arg0) {
+     						Topping.getItems().clear();
+     						newWindow2.close();
+     					}
+     		        };//this close the window whne finsh with sides
+    	                  Done.setOnAction(Dones);
     					}
     		        };
     		        EventHandler<ActionEvent> FoodButtons = new EventHandler<ActionEvent>() {
@@ -463,8 +479,7 @@ public class FoodMenu extends Application {
      						String FoodChose = BName.getText();
      						String PricsDouble = Double.toString(count);
      						PricsDouble = PricsDouble + "0";
-     						table2.getItems().add(new Menu(FoodChose,PricsDouble));
-     						table.getItems().add(new Menu(FoodChose,PricsDouble));
+     						Topping.getItems().add(new Menu(FoodChose,PricsDouble));
      						addCheck2(PricsDouble);
      						counting2();
      					}
@@ -473,19 +488,48 @@ public class FoodMenu extends Application {
      					@Override
      					public void handle(ActionEvent arg0) {
      						Topping.getItems().remove(count2-1);
-     						subCheck();
-     						minusCount();
+     						subCheck2();
+     						minusCount2();
      					}
      		        };
     		        
-    		           EventHandler<ActionEvent> Dones = new EventHandler<ActionEvent>() {
-     					@Override
-     					public void handle(ActionEvent arg0) {
-     						
-     					}
-     		        };
+    		      
     		        No.setOnAction(NoButon);
     		        Yes.setOnAction(Yesb);
+    		        ToppingFinalRe.setOnAction(Remove2);
+    		        
+    		        //these button is for the side windows
+    		        button44.setOnAction(FoodButtons);
+    		        button45.setOnAction(FoodButtons);
+    		        button46.setOnAction(FoodButtons);
+    		        button47.setOnAction(FoodButtons);
+    		        button48.setOnAction(FoodButtons);
+    		        button49.setOnAction(FoodButtons);
+    		        button50.setOnAction(FoodButtons);
+    		        button51.setOnAction(FoodButtons);
+    		        button52.setOnAction(FoodButtons);
+    		        button53.setOnAction(FoodButtons);
+    		        button54.setOnAction(FoodButtons);
+    		        button55.setOnAction(FoodButtons);
+    		        button56.setOnAction(FoodButtons);
+    		        button57.setOnAction(FoodButtons);
+    		        button58.setOnAction(FoodButtons);
+    		        button59.setOnAction(FoodButtons);
+    		        button60.setOnAction(FoodButtons);
+    		        button61.setOnAction(FoodButtons);
+    		        button62.setOnAction(FoodButtons);
+    		        button63.setOnAction(FoodButtons);
+    		        button64.setOnAction(FoodButtons);
+    		        button65.setOnAction(FoodButtons);
+    		        button66.setOnAction(FoodButtons);
+    		        button67.setOnAction(FoodButtons);
+    		        button68.setOnAction(FoodButtons);
+    		        button69.setOnAction(FoodButtons);
+    		        button70.setOnAction(FoodButtons);
+    		        button71.setOnAction(FoodButtons);
+    		        button72.setOnAction(FoodButtons);
+    		        button73.setOnAction(FoodButtons);
+    		        button74.setOnAction(FoodButtons);
      			}
              };
        //this is the setOnAction for the buttons so the button have an action to do
@@ -554,18 +598,21 @@ public class FoodMenu extends Application {
     }
     public void addCheck2(String num) {
     	double number = Double.valueOf(num);
-    	pricesTotal.add(number);
+    	pricesTotal2.add(number);
     	totalCheckAmount2 =  totalCheckAmount2 + number;
     }
     public void subCheck() {
-    	totalCheckAmount2 = totalCheckAmount2 - pricesTotal.get(count-1);
+    	totalCheckAmount = totalCheckAmount - pricesTotal.get(count-1);
+    }
+    public void subCheck2() {
+    	totalCheckAmount2 = totalCheckAmount2 - pricesTotal2.get(count-1);
     }
     public void counting2() {
     	count2++;
     }
     public void minusCount2(){
-    	if(count2 !=0) {
-    		count2--;
+    	if(count !=0) {
+    		count--;
     	}
     }
 }
