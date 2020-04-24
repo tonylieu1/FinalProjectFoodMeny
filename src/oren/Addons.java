@@ -1,3 +1,4 @@
+package oren;
 /**This is the Addons parent object, provides structure for decorator attachment.
  * 
  * @author odmil
