@@ -1,10 +1,10 @@
 
-public class FromRice implements FoodStuff {
+public class FromAllMeats implements FoodStuff {
 
 	@Override
 	public double getFoodPrice() {
 		// TODO Auto-generated method stub
-		return 2.00;
+		return 23.00;
 	}
 
 }

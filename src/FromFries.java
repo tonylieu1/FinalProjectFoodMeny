@@ -1,5 +1,4 @@
 
-
 public class FromFries implements FoodStuff  {
 
 	@Override

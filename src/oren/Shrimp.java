@@ -2,18 +2,17 @@ package oren;
 
 
 
-/**This is an example of a Addon object. 
- * Actual addons will replace 'Side' and have their own Price values.
+/**This is the Shrimp addon object. 
  * 
  * @author odmil
  *
  */
-public class Side extends Addons {
-	Double Price = 0.300;//Example price for a side
+public class Shrimp extends Addons {
+	Double Price = 6.00;//Example price for a side
 	
 	/**The addons will call super to the Addons(mi) constructor to maintain status as decorators
 	 */
-	public Side(MenuItem mi) {
+	public Shrimp(MenuItem mi) {
 		super(mi);
 	}
 	

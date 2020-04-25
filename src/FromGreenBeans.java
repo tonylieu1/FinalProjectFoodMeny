@@ -1,5 +1,5 @@
 
-public class FromRice implements FoodStuff {
+public class FromGreenBeans implements FoodStuff{
 
 	@Override
 	public double getFoodPrice() {

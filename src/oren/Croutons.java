@@ -2,18 +2,17 @@ package oren;
 
 
 
-/**This is an example of a Addon object. 
- * Actual addons will replace 'Side' and have their own Price values.
+/**This is the Croutons addon object. 
  * 
  * @author odmil
  *
  */
-public class Side extends Addons {
-	Double Price = 0.300;//Example price for a side
+public class Croutons extends Addons {
+	Double Price = 0.50;//Example price for a side
 	
 	/**The addons will call super to the Addons(mi) constructor to maintain status as decorators
 	 */
-	public Side(MenuItem mi) {
+	public Croutons(MenuItem mi) {
 		super(mi);
 	}
 	

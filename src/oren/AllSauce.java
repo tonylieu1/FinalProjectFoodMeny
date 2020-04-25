@@ -2,18 +2,17 @@ package oren;
 
 
 
-/**This is an example of a Addon object. 
- * Actual addons will replace 'Side' and have their own Price values.
+/**This is the All Sauces combination addon object. 
  * 
  * @author odmil
  *
  */
-public class Side extends Addons {
-	Double Price = 0.300;//Example price for a side
+public class AllSauce extends Addons {
+	Double Price = 2.00;//Example price for a side
 	
 	/**The addons will call super to the Addons(mi) constructor to maintain status as decorators
 	 */
-	public Side(MenuItem mi) {
+	public AllSauce(MenuItem mi) {
 		super(mi);
 	}
 	

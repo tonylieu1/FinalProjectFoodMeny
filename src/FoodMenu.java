@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import oren.Bacon;
+import oren.BurgerSpecial;
+import oren.Fries;
+import oren.Lettuce;
+import oren.MenuItem;
+import oren.Ranch;
 public class FoodMenu extends Application {
  	private Image image2;
  	int count = 0;
@@ -128,11 +135,11 @@ public class FoodMenu extends Application {
         Button button1 = new Button("HamburgersAndFries");
         Button button2 = new Button("ChickenClubAndFries");
         Button button3 = new Button("ChickenSalad");
-        Button button4 = new Button("TunaAndVegetable medley");
-        Button button5 = new Button("SteaksandMashPotatoes ");
-        Button button6 = new Button("BurritosAndRice ");
+        Button button4 = new Button("TunaAndVegetableMedley");
+        Button button5 = new Button("SteakandMashPotatoes");
+        Button button6 = new Button("BurritosAndRice");
         Button button7 = new Button("ChickenFlorentineAndMashpotatoes");
-        Button button8 = new Button("ChickenTendersAndfries");
+        Button button8 = new Button("ChickenTenderAndfries");
         Button button9 = new Button("ShrimpCapellini");
         Button button10 = new Button("ShrimpPoBoy");
         Button button11 = new Button("BangerAndMash");
@@ -142,14 +149,14 @@ public class FoodMenu extends Application {
         Button button15 = new Button("Shrimp");
         Button button16 = new Button("Salmon");
         Button button17 = new Button("Tuna");
-        Button button18 = new Button("Fries ");
+        Button button18 = new Button("Fries");
         Button button19 = new Button("VegableMedly");
         Button button20 = new Button("ChickenTender");
         Button button21 = new Button("OnionRings");
         Button button22 = new Button("Rice");
-        Button button23 = new Button("Bean ");
+        Button button23 = new Button("Bean");
         Button button24 = new Button("GreenBeans");
-        Button button25 = new Button("Rice");
+       // Button button25 = new Button("Rice");
         Button button26 = new Button("Fruit");
         Button button27 = new Button("Honeymustard");
         Button button28 = new Button("BBQsauce");
@@ -158,48 +165,50 @@ public class FoodMenu extends Application {
         Button button31 = new Button("Bacon");
         Button button32 = new Button("Lettuce");
         Button button33 = new Button("Tomatoes");
-        Button button34 = new Button("Onions");
+        Button button34 = new Button("Onion");
         Button button35 = new Button("Salad");
         Button button36 = new Button("Crotons");   
-        Button button37 = new Button("Add all meats ");
-        Button button38 = new Button("Add all Vegetables ");
-        Button button39 = new Button("Add Beans and Rice with gravity ");
-        Button button40 = new Button("Add Fries and Onions rings ");
-        Button button41 = new Button("Add Greens beans and Mash potatoes ");
-        Button button42 = new Button("Add all sauces ");
-        Button button43 = new Button("Add Green Beans and Vegetable Medley  ");
+        Button button37 = new Button("AllMeats");
+        Button button38 = new Button("AllVegetables");
+        Button button39 = new Button("AddBeanAndRiceWithGravity");
+        Button button40 = new Button("AddFriesAndOnionsRings");
+        Button button41 = new Button("AddGreensbeansAndMashPotatoes");
+        Button button42 = new Button("AddAllSauces");
+        Button button43 = new Button("AddGreenBeansAndVegetableMedley");
         //this is for the second windw
         Button button44 = new Button("Beef");
         Button button45 = new Button("Chicken");
         Button button46 = new Button("Shrimp");
         Button button47 = new Button("Salmon");
         Button button48 = new Button("Tuna");
-        Button button49 = new Button("Fries ");
-        Button button50 = new Button("Vegable Medly");
-        Button button51 = new Button("Chicken Tender");
-        Button button52 = new Button("Onion Rings");
+        Button button49 = new Button("Fries");
+        Button button50 = new Button("VegableMedly");
+        Button button51 = new Button("ChickenTender");
+        Button button52 = new Button("OnionRings");
         Button button53 = new Button("Rice");
-        Button button54 = new Button("Bean ");
-        Button button55 = new Button("Green Beans");
+        Button button54 = new Button("Bean");
+        Button button55 = new Button("GreenBeans");
         Button button56 = new Button("Rice");
         Button button57 = new Button("Fruit");
-        Button button58 = new Button("Honey mustard");
-        Button button59 = new Button("BBQ sauce");
+        Button button58 = new Button("Honeymustard");
+        Button button59 = new Button("BBQsauce");
         Button button60 = new Button("Ranch");
-        Button button61= new Button("Blue Cheese");
+        Button button61= new Button("BlueCheese");
         Button button62 = new Button("Bacon");
         Button button63 = new Button("Lettuce");
         Button button64 = new Button("Tomatoes");
-        Button button65 = new Button("Onions");
+        Button button65 = new Button("Onion");
         Button button66 = new Button("Salad");
         Button button67 = new Button("Crotons");   
-        Button button68 = new Button("Add all meats ");
-        Button button69 = new Button("Add all Vegetables ");
-        Button button70 = new Button("Add Beans and Rice with gravity ");
-        Button button71 = new Button("Add Fries and Onions rings ");
-        Button button72 = new Button("Add Greens beans and Mash potatoes ");
-        Button button73 = new Button("Add all sauces ");
-        Button button74 = new Button("Add Green Beans and Vegetable Medley  ");
+        Button button68 = new Button("AllMeats");
+        Button button69 = new Button("AllVegetables");
+        Button button70 = new Button("AddBeanAndRiceWithGravity");
+        Button button71 = new Button("AddFriesAndOnionsRings");
+        Button button72 = new Button("AddGreensbeansAndMashPotatoes");
+        Button button73 = new Button("AddAllSauces");
+        Button button74 = new Button("AddGreenBeansAndVegetableMedley");
+        Button BaconBurger = new Button("BaconBurger And Fries");
+        Button VeggaBurger = new Button("VeggaBurger");
         //this button will remove the last order put in
         Button Delete = new Button("Remove");
         //this will finalize the pick for the food and send the data to an array
@@ -232,8 +241,6 @@ public class FoodMenu extends Application {
         Tab tab3 = new Tab("Reciept" , G3);
         //Tab tab4 = new Tab("Invoices", G4);
         Tab tab5 = new Tab("Displays", G5);
-        
-       
         //this is the button to put in the scenes and the row and colums in that order;fv b
         G.add(button1, 1,1);
         G.add(button2, 2,1);
@@ -247,6 +254,8 @@ public class FoodMenu extends Application {
         G.add(button10, 2, 3);
         G.add(button11, 3, 3);
         G.add(button12, 4, 3);
+        G.add(BaconBurger, 1, 4);
+        G.add(VeggaBurger, 2, 4);
         //this is the background color
         G.setBackground(backgs);
         G2.add(button13, 1,1);
@@ -261,7 +270,7 @@ public class FoodMenu extends Application {
         G2.add(button22, 2, 3);
         G2.add(button23, 3, 3);
         G2.add(button24, 4, 3);
-        G2.add(button25, 1,4);
+       // G2.add(button25, 1,4);
         G2.add(button26, 2,4);
         G2.add(button27, 3,4);
         G2.add(button28, 4,4);
@@ -369,13 +378,46 @@ public class FoodMenu extends Application {
 				}
 			}
         };
+        EventHandler<ActionEvent> BaconHamburger = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent Ob) {
+					Button OBB = (Button) Ob.getSource();
+					String FoodChose = OBB.getText();
+					MenuItem MI = new BurgerSpecial();
+					MI = new Bacon(MI);
+					MI = new Fries(MI);
+					String PricsDouble = Double.toString(MI.givePrice());
+					table2.getItems().add(new Menu(FoodChose,PricsDouble));
+					table.getItems().add(new Menu(FoodChose,PricsDouble));
+					addCheck(PricsDouble);
+					counting();
+				}
+	        };
+	        EventHandler<ActionEvent> VeegaHamburger = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent Ob) {
+					Button OBB = (Button) Ob.getSource();
+					String FoodChose = OBB.getText();
+					MenuItem VG = new BurgerSpecial();
+					VG = new Ranch(VG);
+					VG = new Lettuce(VG);
+					VG = new Fries(VG);
+					String PricsDouble = Double.toString(VG.givePrice());
+					table2.getItems().add(new Menu(FoodChose,PricsDouble));
+					table.getItems().add(new Menu(FoodChose,PricsDouble));
+					addCheck(PricsDouble);
+					counting();
+				}
+	        };
         EventHandler<ActionEvent> TopingGenerator = new EventHandler<ActionEvent>() {
      			@Override
      			public void handle(ActionEvent e) {
      				Button BName = (Button) e.getSource();
+     				String FoodNamess = BName.getText();
      				Button Yes = new Button("Yes");
      				Button No = new Button("No");
      				Button Done = new Button("Done");
+     				Done.resize(20, 20);
      				GridPane Gp = new GridPane();
      				Gp.setVgap(20);
      				Gp.setHgap(20);
@@ -390,15 +432,22 @@ public class FoodMenu extends Application {
                    newWindow.show();
                    EventHandler<ActionEvent> NoButon = new EventHandler<ActionEvent>() {
     					@Override
-    					public void handle(ActionEvent e) {
-    						// TODO Auto-generated method stub
+    					public void handle(ActionEvent b) {
+    						Button BName = (Button) e.getSource();
+    						FoodFacto ff = FoodFacto.getFood();
     						String FoodChose = BName.getText();
-     						String PricsDouble = Double.toString(count);
-     						PricsDouble = PricsDouble + "0";
-     						table2.getItems().add(new Menu(FoodChose,PricsDouble));
-     						table.getItems().add(new Menu(FoodChose,PricsDouble));
-     						addCheck(PricsDouble);
-     						counting();
+    						ff.setCompany(FoodChose);
+    						try {
+    							foodPrice = ff.getFoodPrice();
+    						} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						String PricsDouble = Double.toString(foodPrice);
+    						table2.getItems().add(new Menu(FoodChose,PricsDouble));
+    						table.getItems().add(new Menu(FoodChose,PricsDouble));
+    						addCheck(PricsDouble);
+    						counting();
     						newWindow.close();
     					}
     		        };   
@@ -407,12 +456,25 @@ public class FoodMenu extends Application {
     					@Override
     					public void handle(ActionEvent arg0) {
     						newWindow.close();
+    						FoodFacto ff = FoodFacto.getFood();
+    						String FoodChose = FoodNamess;
+    						ff.setCompany(FoodChose);
+    						try {
+    							foodPrice = ff.getFoodPrice();
+    						} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						String PricsDouble = Double.toString(foodPrice);
+    						PricsDouble = PricsDouble + "0";
+    						table2.getItems().add(new Menu(FoodChose,PricsDouble));
+    						table.getItems().add(new Menu(FoodChose,PricsDouble));
+    						addCheck(PricsDouble);
+    						counting();
     	     				GridPane Gp2 = new GridPane();
     	     				GridPane Gp3 = new GridPane();
     	     				Gp2.setVgap(20);
-    	     				Gp2.setHgap(20);
     	     				Gp3.setVgap(20);
-    	     				Gp3.setHgap(20);
     	     				Gp2.add(button44, 0, 0);
     	     				Gp2.add(button45, 1, 0);
     	     				Gp2.add(button46, 2, 0);
@@ -444,42 +506,61 @@ public class FoodMenu extends Application {
     	     				Gp2.add(button72, 3, 5);
     	     				Gp2.add(button73, 4, 5);
     	     				Gp2.add(button74, 0, 6);
-    	     				Gp3.add(Topping, 0, 0);
-    	     				Gp3.add(Done, 0 , 1);
-    	     				Gp3.add(ToppingFinalRe, 1, 1);
+    	     				Gp2.add(Done, 0, 8);
+    	     				
+    	     				//Gp3.add(Topping, 0, 0);
+    	     				//Gp3.add(Done, 0 , 1);
+    	     				//Gp3.add(ToppingFinalRe, 1, 1);
     	     				SplitPane sp2 = new SplitPane();
     	     				Stage newWindow2 = new Stage();
     	     				Tab Tab1Toping = new Tab("Topping",Gp2);
-    	     				Tab Tab2Pricing = new Tab("Display",Gp3);
+    	     				//Tab Tab2Pricing = new Tab("Display",Gp3);
     	     				tabPane3.getTabs().add(Tab1Toping);
-    	     				tabPane4.getTabs().add(Tab2Pricing);
+    	     				//tabPane4.getTabs().add(Tab2Pricing);
     	     				sp2.getItems().add(tabPane3);
-    	     				sp2.getItems().add(tabPane4);
-    	     				sp2.setDividerPositions(0.7);
+    	     				//sp2.getItems().add(tabPane4);
     	                   VBox vBox2 = new VBox(sp2);
     	                   Scene scene = new Scene(vBox2);
+    	                   newWindow2.setX(5);
     	                 newWindow2.setHeight(635);
-    	                 newWindow2.setWidth(1750);
-    	     				newWindow2.setTitle("Topping Window");
+    	                 newWindow2.setWidth(860);
+    	     				newWindow2.setTitle("Would you like to add a Topping?");
     	     				newWindow2.setScene(scene);
     	                   newWindow2.show();
     	                       EventHandler<ActionEvent> Dones = new EventHandler<ActionEvent>() {
      					@Override
      					public void handle(ActionEvent arg0) {
-     						Topping.getItems().clear();
+     						//Topping.getItems().clear();
+     						//totalCheckAmount = totalCheckAmount + totalCheckAmount2;
+     						//count2 = 0;
+     						//totalCheckAmount2 = 0;
+     						tabPane3.getTabs().remove(Tab1Toping);
      						newWindow2.close();
      					}
      		        };//this close the window whne finsh with sides
     	                  Done.setOnAction(Dones);
     					}
     		        };
+    		       
     		        EventHandler<ActionEvent> FoodButtons = new EventHandler<ActionEvent>() {
      					@Override
      					public void handle(ActionEvent e) {
-     						String FoodChose = BName.getText();
-     						String PricsDouble = Double.toString(count);
-     						PricsDouble = PricsDouble + "0";
-     						Topping.getItems().add(new Menu(FoodChose,PricsDouble));
+     						Button B = (Button) e.getSource();
+     						FoodFacto ff = FoodFacto.getFood();
+    						String FoodChose = B.getText();
+    						ff.setCompany(FoodChose);
+    						try {
+    							foodPrice = ff.getFoodPrice();
+    						} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						String PricsDouble = Double.toString(foodPrice);
+    						PricsDouble = PricsDouble + "0";
+     						table2.getItems().add(new Menu(FoodChose,PricsDouble));
+     						table.getItems().add(new Menu(FoodChose,PricsDouble));
+     						addCheck(PricsDouble);
+     						counting();
      						addCheck2(PricsDouble);
      						counting2();
      					}
@@ -490,12 +571,17 @@ public class FoodMenu extends Application {
      						Topping.getItems().remove(count2-1);
      						subCheck2();
      						minusCount2();
+     						table2.getItems().remove(count-1);
+     						table.getItems().remove(count-1);
+     						subCheck();
+     						minusCount();
      					}
      		        };
     		        
     		      
     		        No.setOnAction(NoButon);
     		        Yes.setOnAction(Yesb);
+    		        
     		        ToppingFinalRe.setOnAction(Remove2);
     		        
     		        //these button is for the side windows
@@ -534,17 +620,17 @@ public class FoodMenu extends Application {
              };
        //this is the setOnAction for the buttons so the button have an action to do
        button1.setOnAction(TopingGenerator);
-       button2.setOnAction(event);
-       button3.setOnAction(event);
-       button4.setOnAction(event);
-       button5.setOnAction(event);
-       button6.setOnAction(event);
-       button7.setOnAction(event);
-       button8.setOnAction(event);
-       button9.setOnAction(event);
-       button10.setOnAction(event);
-       button11.setOnAction(event);
-       button12.setOnAction(event);
+       button2.setOnAction(TopingGenerator);
+       button3.setOnAction(TopingGenerator);
+       button4.setOnAction(TopingGenerator);
+       button5.setOnAction(TopingGenerator);
+       button6.setOnAction(TopingGenerator);
+       button7.setOnAction(TopingGenerator);
+       button8.setOnAction(TopingGenerator);
+       button9.setOnAction(TopingGenerator);
+       button10.setOnAction(TopingGenerator);
+       button11.setOnAction(TopingGenerator);
+       button12.setOnAction(TopingGenerator);
        button13.setOnAction(event);
        button14.setOnAction(event);
        button15.setOnAction(event);
@@ -557,7 +643,7 @@ public class FoodMenu extends Application {
        button22.setOnAction(event);
        button23.setOnAction(event);
        button24.setOnAction(event);
-       button25.setOnAction(event);
+       //button25.setOnAction(event);
        button26.setOnAction(event);
        button27.setOnAction(event);
        button28.setOnAction(event);
@@ -571,6 +657,7 @@ public class FoodMenu extends Application {
        button36.setOnAction(event);
        button37.setOnAction(event);
        button38.setOnAction(event);
+       button39.setOnAction(event);
        button40.setOnAction(event);
        button41.setOnAction(event);
        button42.setOnAction(event);
@@ -579,6 +666,8 @@ public class FoodMenu extends Application {
        finalize1.setOnAction(Finallize);
        Payed.setOnAction(payment);
        Void.setOnAction(payment);
+       BaconBurger.setOnAction(BaconHamburger);
+       VeggaBurger.setOnAction(VeegaHamburger);
         primaryStage.setScene(scene);
         primaryStage.setTitle("FoodMenu");
         primaryStage.show();

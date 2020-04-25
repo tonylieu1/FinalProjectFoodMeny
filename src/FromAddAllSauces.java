@@ -1,10 +1,10 @@
 
-public class FromTunaAndCegetableMedley implements FoodStuff{
+public class FromAddAllSauces implements FoodStuff{
 
 	@Override
 	public double getFoodPrice() {
 		// TODO Auto-generated method stub
-		return 10.00;
+		return 2.00;
 	}
 
 }
