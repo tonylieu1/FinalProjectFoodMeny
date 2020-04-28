@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import Trip.Facade;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import oren.Bacon;
 import oren.BurgerSpecial;
 import oren.Fries;
@@ -362,7 +365,7 @@ public class FoodMenu extends Application {
 				table2.getItems().clear();
 				count = 0;
 				checkNum++;
-				texts.setText("Total:" +totalCheckAmount);
+				texts.setText("Total:" +totalCheckAmount+"0");
 				}
 			}
         };
@@ -427,6 +430,8 @@ public class FoodMenu extends Application {
      				Scene secondScene = new Scene(Gp, 230, 100);
      				newWindow.setTitle("Topping Window");
      				newWindow.setScene(secondScene);
+     			    newWindow.setHeight(635);
+	                 newWindow.setWidth(860);
      			   newWindow.setX(primaryStage.getX() + 200);
                    newWindow.setY(primaryStage.getY() + 100);
                    newWindow.show();
@@ -473,8 +478,7 @@ public class FoodMenu extends Application {
     						counting();
     	     				GridPane Gp2 = new GridPane();
     	     				GridPane Gp3 = new GridPane();
-    	     				Gp2.setVgap(20);
-    	     				Gp3.setVgap(20);
+    	     				Gp2.setVgap(20);Gp3.setVgap(20);
     	     				Gp2.add(button44, 0, 0);
     	     				Gp2.add(button45, 1, 0);
     	     				Gp2.add(button46, 2, 0);
@@ -507,7 +511,6 @@ public class FoodMenu extends Application {
     	     				Gp2.add(button73, 4, 5);
     	     				Gp2.add(button74, 0, 6);
     	     				Gp2.add(Done, 0, 8);
-    	     				
     	     				//Gp3.add(Topping, 0, 0);
     	     				//Gp3.add(Done, 0 , 1);
     	     				//Gp3.add(ToppingFinalRe, 1, 1);
@@ -524,6 +527,7 @@ public class FoodMenu extends Application {
     	                   newWindow2.setX(5);
     	                 newWindow2.setHeight(635);
     	                 newWindow2.setWidth(860);
+    	                 newWindow2.initStyle(StageStyle.UNDECORATED);
     	     				newWindow2.setTitle("Would you like to add a Topping?");
     	     				newWindow2.setScene(scene);
     	                   newWindow2.show();
@@ -541,7 +545,6 @@ public class FoodMenu extends Application {
     	                  Done.setOnAction(Dones);
     					}
     		        };
-    		       
     		        EventHandler<ActionEvent> FoodButtons = new EventHandler<ActionEvent>() {
      					@Override
      					public void handle(ActionEvent e) {
@@ -577,13 +580,12 @@ public class FoodMenu extends Application {
      						minusCount();
      					}
      		        };
+     		       
     		        
     		      
     		        No.setOnAction(NoButon);
-    		        Yes.setOnAction(Yesb);
-    		        
+    		        Yes.setOnAction(Yesb);	        
     		        ToppingFinalRe.setOnAction(Remove2);
-    		        
     		        //these button is for the side windows
     		        button44.setOnAction(FoodButtons);
     		        button45.setOnAction(FoodButtons);
@@ -618,6 +620,31 @@ public class FoodMenu extends Application {
     		        button74.setOnAction(FoodButtons);
      			}
              };
+             EventHandler<ActionEvent> allMeats = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent e) {
+						// TODO Auto-generated method stub
+						Facade fa = new Facade();
+						fa.AddAllMeats();
+						Button BName = (Button) e.getSource();
+						FoodFacto ff = FoodFacto.getFood();
+						String FoodChose = BName.getText();
+						ff.setCompany(FoodChose);
+						try {
+							foodPrice = ff.getFoodPrice();
+						} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						String PricsDouble = Double.toString(foodPrice);
+						PricsDouble = PricsDouble + "0";
+						table2.getItems().add(new Menu(FoodChose,PricsDouble));
+						table.getItems().add(new Menu(FoodChose,PricsDouble));
+						addCheck(PricsDouble);
+						counting();
+						
+					}
+		        };
        //this is the setOnAction for the buttons so the button have an action to do
        button1.setOnAction(TopingGenerator);
        button2.setOnAction(TopingGenerator);
@@ -655,7 +682,7 @@ public class FoodMenu extends Application {
        button34.setOnAction(event);
        button35.setOnAction(event);
        button36.setOnAction(event);
-       button37.setOnAction(event);
+       button37.setOnAction(allMeats);
        button38.setOnAction(event);
        button39.setOnAction(event);
        button40.setOnAction(event);
