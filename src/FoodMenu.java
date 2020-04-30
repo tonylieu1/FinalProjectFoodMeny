@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -47,6 +48,7 @@ public class FoodMenu extends Application {
  	double totalCheckAmount;
  	double totalCheckAmount2;
  	double foodPrice;
+ 	boolean buto = false;
  	ArrayList<Double> pricesTotal = new ArrayList();
  	ArrayList<Double> pricesTotal2 = new ArrayList();
     public static void main(String[] args)throws InstantiationException,IllegalAccessException, ClassNotFoundException {
@@ -360,12 +362,15 @@ public class FoodMenu extends Application {
 				// TODO Auto-generated method stub
 				if(table2.getItems().isEmpty()) {
 					return;
+				}else if(buto) {
+					
 				}
 				else {
 				table2.getItems().clear();
 				count = 0;
 				checkNum++;
 				texts.setText("Total:" +totalCheckAmount+"0");
+				buto = true;
 				}
 			}
         };
@@ -378,6 +383,7 @@ public class FoodMenu extends Application {
 				table.getItems().clear();
 				totalCheckAmount = 0;
 				texts.setText("Total:" +totalCheckAmount);
+				buto = false;
 				}
 			}
         };
